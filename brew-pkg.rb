@@ -57,7 +57,7 @@ Options:
     FileUtils.mkdir_p staging_root
 
 
-    pkgs = [f]
+    pkgs = [ARGV.last]
 
     # Add deps if we specified --with-deps
     pkgs += f.recursive_dependencies if ARGV.include? '--with-deps'
