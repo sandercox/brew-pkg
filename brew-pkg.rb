@@ -11,6 +11,7 @@ end
 
 # cribbed Homebrew module code from brew-unpack.rb
 module Homebrew extend self
+  include Utils::Output::Mixin
   def pkg
     unpack_usage = <<-EOS
 Usage: brew pkg [--identifier-prefix] [--with-deps] [--without-kegs] formula
