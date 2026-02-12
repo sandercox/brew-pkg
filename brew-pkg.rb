@@ -92,6 +92,16 @@ Options:
 
       end
 
+      # Stage etc/ files for this formula (e.g. openssl@3 CA certs, config files)
+      # These live outside the Cellar at HOMEBREW_PREFIX/etc/<formula_name>/
+      # and are typically created during `brew postinstall`.
+      etc_dir = File.join(HOMEBREW_PREFIX, "etc", formula.name)
+      if File.exist?(etc_dir)
+        ohai "Staging etc directory #{etc_dir}"
+        safe_system "mkdir", "-p", "#{staging_root}/etc/"
+        safe_system "rsync", "-a", "#{etc_dir}", "#{staging_root}/etc/"
+      end
+
       # Write out a LaunchDaemon plist if we have one
       if formula.service?
         ohai "Plist found at #{formula.plist_name}, staging for /Library/LaunchDaemons/#{formula.plist_name}.plist"
